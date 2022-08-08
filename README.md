@@ -1,3 +1,3 @@
 # android_tests
 
-Repositorio para pruebas de SOftware en Android
+Repositorio para pruebas de Software en Android
