@@ -2,6 +2,7 @@ package com.ridery.test.yerih.feature.usertask.ui.screens
 
 
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,11 +23,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ridery.test.yerih.core.domain.UserDomain
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.RideryTestTheme
+import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes
 import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel
 import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel.UiEvent.*
 import kotlinx.coroutines.channels.Channel
@@ -39,7 +42,7 @@ fun LoginScreen(
     event: Flow<LoginViewModel.UiEvent> = Channel<LoginViewModel.UiEvent>().receiveAsFlow(),
     onLoginClicked: (UserDomain)->Unit = {},
     onSignUpClicked: (UserDomain)->Unit = {},
-    onTaskDone: ()->Unit = {}
+    onTaskDone: (route: String)->Unit = {}
 ) {
     var user by remember { mutableStateOf("yerih") }
     var password by remember { mutableStateOf("password") }
@@ -48,9 +51,9 @@ fun LoginScreen(
     LaunchedEffect(key1 = Unit){
         event.collect{uiEvent ->
             when(uiEvent){
-                is NavigateToHome -> onTaskDone()
+                is NavigateToHome -> onTaskDone(Routes.home)
                 is ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
-                is NavigateToSignUp -> onSignUpClicked(uiEvent.user)
+                is NavigateToSignUp -> onTaskDone(Routes.signup)
             }
         }
     }
@@ -91,6 +94,12 @@ fun LoginScreen(
                 label = { Text(text = "Password") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 modifier = Modifier.fillMaxWidth()
+            )
+            Text(
+                text = "Sign up?",
+                style = Font.bodyLarge,
+                textAlign = TextAlign.End,
+                modifier = Modifier.clickable { onSignUpClicked(UserDomain(user,password)) }
             )
 
             Button(

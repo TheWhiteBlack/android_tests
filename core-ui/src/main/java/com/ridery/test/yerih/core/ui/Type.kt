@@ -17,6 +17,7 @@
 package com.ridery.test.yerih.core.ui
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +35,8 @@ object Font {
     val titleLarge = bodyLarge.copy(
         fontSize = 36.sp
     )
+
+    val blueLink = bodyLarge.copy(color = Color.Blue)
 }
 
 // Set of Material typography styles to start with

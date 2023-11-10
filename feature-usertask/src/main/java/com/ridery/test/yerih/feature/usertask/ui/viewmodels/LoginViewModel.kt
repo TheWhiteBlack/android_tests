@@ -43,7 +43,15 @@ class LoginViewModel @Inject constructor(
     }
     private fun saveUser(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) { userRepository.add(user) }
 
-    fun onSignUpClicked(user: UserDomain) = viewModelScope.launch { _event.send(UiEvent.NavigateToSignUp(user)) }
+    fun onSignUpClicked(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) {
+        userRepository.getUsers().let{ users ->
+            if(users.contains(user)) {
+                _event.send(UiEvent.ToastMsg("User registered. You can log in"))
+                return@launch
+            }
+            _event.send(UiEvent.NavigateToSignUp(user))
+        }
+    }
     fun onLoginClicked(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) {
         with(user){
             username.ifEmpty { _event.send(UiEvent.ToastMsg("Username can't be empty")); return@launch}
