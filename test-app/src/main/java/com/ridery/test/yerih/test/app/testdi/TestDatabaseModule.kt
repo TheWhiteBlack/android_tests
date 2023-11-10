@@ -20,9 +20,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import com.ridery.test.yerih.core.data.UserTaskRepository
+import com.ridery.test.yerih.core.data.UserRepository
 import com.ridery.test.yerih.core.data.di.DataModule
-import com.ridery.test.yerih.core.data.di.FakeUserTaskRepository
+import com.ridery.test.yerih.core.data.di.FakeUserRepository
 
 @Module
 @TestInstallIn(
@@ -33,6 +33,6 @@ interface FakeDataModule {
 
     @Binds
     abstract fun bindRepository(
-        fakeRepository: FakeUserTaskRepository
-    ): UserTaskRepository
+        fakeRepository: FakeUserRepository
+    ): UserRepository
 }

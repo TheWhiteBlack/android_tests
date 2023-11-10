@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.ridery.test.yerih.feature.usertask.ui.UserTaskScreen
+import com.ridery.test.yerih.feature.usertask.ui.screens.LoginScreen
 
 
 fun NavGraphBuilder.userNavGraph(navController: NavController){
@@ -20,18 +20,16 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
         startDestination = signinRoute,
     ){
         composable(route = signinRoute){
-            UserTaskScreen(modifier = Modifier.padding(16.dp))
+            LoginScreen()
         }
 
         composable(route = signupRoute){
-            UserTaskScreen(modifier = Modifier.padding(16.dp))
+            LoginScreen()
         }
 
         composable(route = homeRoute){
-            UserTaskScreen(modifier = Modifier.padding(16.dp))
+            LoginScreen()
         }
     }
 
 }
-
-

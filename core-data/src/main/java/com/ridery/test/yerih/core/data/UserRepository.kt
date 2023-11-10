@@ -1,0 +1,41 @@
+/*
+ * Copyright (C) 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.ridery.test.yerih.core.data
+
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import com.ridery.test.yerih.core.database.UserEntity
+import com.ridery.test.yerih.core.database.UserTaskDao
+import com.ridery.test.yerih.core.domain.UserDomain
+import javax.inject.Inject
+
+interface UserRepository {
+    val userTasks: Flow<List<String>>
+
+    suspend fun add(user: UserDomain)
+}
+
+class UserRepositoryImpl @Inject constructor(
+    private val userTaskDao: UserTaskDao
+) : UserRepository {
+
+    override val userTasks: Flow<List<String>> =
+        userTaskDao.getUserTasks().map { items -> items.map { it.username } }
+
+    override suspend fun add(user: UserDomain) = userTaskDao.insertUserTask(user.toEntityDB())
+
+}

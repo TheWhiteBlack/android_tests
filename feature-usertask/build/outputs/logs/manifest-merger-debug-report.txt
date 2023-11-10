@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml:2:13-83
+INJECTED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml:2:13-83
+	package
+		INJECTED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml
+	xmlns:android
+		ADDED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml:2:23-81
+uses-sdk
+INJECTED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml reason: use-sdk injection requested
+INJECTED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml
+INJECTED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml
+	android:targetSdkVersion
+		INJECTED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml
+	android:minSdkVersion
+		INJECTED from D:\Repositorios\Postulaciones\ridery\android_tests\feature-usertask\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest2595135172203209813.xml

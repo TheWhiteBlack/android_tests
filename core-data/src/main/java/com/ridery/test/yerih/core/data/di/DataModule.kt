@@ -22,8 +22,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import com.ridery.test.yerih.core.data.UserTaskRepository
-import com.ridery.test.yerih.core.data.DefaultUserTaskRepository
+import com.ridery.test.yerih.core.data.UserRepository
+import com.ridery.test.yerih.core.data.UserRepositoryImpl
+import com.ridery.test.yerih.core.database.UserEntity
+import com.ridery.test.yerih.core.domain.UserDomain
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,14 +36,14 @@ interface DataModule {
     @Singleton
     @Binds
     fun bindsUserTaskRepository(
-        userTaskRepository: DefaultUserTaskRepository
-    ): UserTaskRepository
+        userRepository: UserRepositoryImpl
+    ): UserRepository
 }
 
-class FakeUserTaskRepository @Inject constructor() : UserTaskRepository {
+class FakeUserRepository @Inject constructor() : UserRepository {
     override val userTasks: Flow<List<String>> = flowOf(fakeUserTasks)
 
-    override suspend fun add(name: String) {
+    override suspend fun add(user: UserDomain) {
         throw NotImplementedError()
     }
 }

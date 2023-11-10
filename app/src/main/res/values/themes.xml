@@ -22,5 +22,6 @@
     <!--    Splash screen-->
     <style name="Theme.RideryTestYerih.SplashTheme" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 </resources>

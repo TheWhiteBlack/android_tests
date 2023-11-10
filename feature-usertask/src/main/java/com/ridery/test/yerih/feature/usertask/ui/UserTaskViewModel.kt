@@ -25,7 +25,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import com.ridery.test.yerih.core.data.UserTaskRepository
+import com.ridery.test.yerih.core.data.UserRepository
+import com.ridery.test.yerih.core.domain.UserDomain
 import com.ridery.test.yerih.feature.usertask.ui.UserTaskUiState.Error
 import com.ridery.test.yerih.feature.usertask.ui.UserTaskUiState.Loading
 import com.ridery.test.yerih.feature.usertask.ui.UserTaskUiState.Success
@@ -33,18 +34,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserTaskViewModel @Inject constructor(
-    private val userTaskRepository: UserTaskRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val uiState: StateFlow<UserTaskUiState> = userTaskRepository
+    val uiState: StateFlow<UserTaskUiState> = userRepository
         .userTasks.map<List<String>, UserTaskUiState> { Success(data = it) }
         .catch { emit(Error(it)) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Loading)
 
-    fun addUserTask(name: String) {
-        viewModelScope.launch {
-            userTaskRepository.add(name)
-        }
+    fun addUserTask(user: UserDomain) = viewModelScope.launch {
+        userRepository.add(user)
     }
 }
 

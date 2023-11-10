@@ -81,6 +81,7 @@ android {
 
 dependencies {
     implementation(project(":core-ui"))
+    implementation(project(":core"))
     implementation(project(":feature-usertask"))
 
     // Core Android dependencies
