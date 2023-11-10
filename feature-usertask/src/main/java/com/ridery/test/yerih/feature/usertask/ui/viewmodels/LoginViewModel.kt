@@ -39,19 +39,23 @@ class LoginViewModel @Inject constructor(
     sealed interface UiEvent{
         data class NavigateToHome(val user: UserDomain) : UiEvent
         data class NavigateToSignUp(val user: UserDomain) : UiEvent
-        data class Toast(val msg: String) : UiEvent
+        data class ToastMsg(val msg: String) : UiEvent
     }
     private fun saveUser(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) { userRepository.add(user) }
 
     fun onSignUpClicked(user: UserDomain) = viewModelScope.launch { _event.send(UiEvent.NavigateToSignUp(user)) }
     fun onLoginClicked(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) {
+        with(user){
+            username.ifEmpty { _event.send(UiEvent.ToastMsg("Username can't be empty")); return@launch}
+            password.ifEmpty { _event.send(UiEvent.ToastMsg("Password can't be empty")); return@launch }
+        }
         userRepository.getUsers().let{ users ->
             log("Users = $users, user = $user, contains? ${users.contains(user)}")
             if(users.contains(user))
                 _event.send(UiEvent.NavigateToHome(user))
             else {
                 saveUser(user)
-                _event.send(UiEvent.Toast("User no registered"))
+                _event.send(UiEvent.ToastMsg("User no registered"))
             }
         }
     }
