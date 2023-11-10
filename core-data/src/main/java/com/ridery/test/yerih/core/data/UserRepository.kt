@@ -16,16 +16,12 @@
 
 package com.ridery.test.yerih.core.data
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import com.ridery.test.yerih.core.database.UserEntity
 import com.ridery.test.yerih.core.database.UserTaskDao
 import com.ridery.test.yerih.core.domain.UserDomain
 import javax.inject.Inject
 
 interface UserRepository {
-    val userTasks: Flow<List<String>>
-
+    suspend fun getUsers(): List<UserDomain>
     suspend fun add(user: UserDomain)
 }
 
@@ -33,8 +29,7 @@ class UserRepositoryImpl @Inject constructor(
     private val userTaskDao: UserTaskDao
 ) : UserRepository {
 
-    override val userTasks: Flow<List<String>> =
-        userTaskDao.getUserTasks().map { items -> items.map { it.username } }
+    override suspend fun getUsers(): List<UserDomain> = userTaskDao.getUsers().toDomain()
 
     override suspend fun add(user: UserDomain) = userTaskDao.insertUserTask(user.toEntityDB())
 

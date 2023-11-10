@@ -31,10 +31,11 @@ dependencyResolutionManagement {
 rootProject.name = "Ridery Test Yerih"
 
 include(":app")
-include(":core")
+//include(":core")
 include(":core-data")
 include(":core-database")
 include(":core-testing")
 include(":core-ui")
 include(":feature-usertask")
 include(":test-app")
+include(":core")

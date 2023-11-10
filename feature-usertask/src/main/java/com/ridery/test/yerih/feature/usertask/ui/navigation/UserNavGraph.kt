@@ -1,12 +1,12 @@
 package com.ridery.test.yerih.feature.usertask.ui.navigation
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.ridery.test.yerih.core.sharedViewModel
+import com.ridery.test.yerih.feature.usertask.ui.screens.HomeScreen
+import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel
 import com.ridery.test.yerih.feature.usertask.ui.screens.LoginScreen
 
 
@@ -20,15 +20,21 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
         startDestination = signinRoute,
     ){
         composable(route = signinRoute){
-            LoginScreen()
+            val viewModel = it.sharedViewModel<LoginViewModel>(navController = navController)
+            LoginScreen(
+                event = viewModel.event,
+                onSignUpClicked = viewModel::onSignUpClicked,
+                onLoginClicked = viewModel::onLoginClicked,
+                onTaskDone = { navController.navigate(homeRoute) }
+            )
         }
 
         composable(route = signupRoute){
-            LoginScreen()
+
         }
 
         composable(route = homeRoute){
-            LoginScreen()
+            HomeScreen()
         }
     }
 

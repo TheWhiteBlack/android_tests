@@ -35,7 +35,7 @@ data class UserEntity(
 @Dao
 interface UserTaskDao {
     @Query("SELECT * FROM userentity ORDER BY uid DESC LIMIT 10")
-    fun getUserTasks(): Flow<List<UserEntity>>
+    fun getUsers(): List<UserEntity>
 
     @Insert
     suspend fun insertUserTask(item: UserEntity)

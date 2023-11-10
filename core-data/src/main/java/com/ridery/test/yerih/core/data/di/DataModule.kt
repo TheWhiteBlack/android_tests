@@ -41,11 +41,11 @@ interface DataModule {
 }
 
 class FakeUserRepository @Inject constructor() : UserRepository {
-    override val userTasks: Flow<List<String>> = flowOf(fakeUserTasks)
+    override suspend fun getUsers(): List<UserDomain> = fakeUserTasks
 
     override suspend fun add(user: UserDomain) {
         throw NotImplementedError()
     }
 }
 
-val fakeUserTasks = listOf("One", "Two", "Three")
+val fakeUserTasks = listOf(UserDomain())

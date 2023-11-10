@@ -12,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,22 +22,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ridery.test.yerih.core.domain.UserDomain
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.RideryTestTheme
-import com.ridery.test.yerih.feature.usertask.ui.UserTaskUiState.Success
-import com.ridery.test.yerih.feature.usertask.ui.UserTaskViewModel
+import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel
+import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel.UiEvent.*
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 
 
 @Composable
 fun LoginScreen(
-    onSave: (user: UserDomain) -> Unit = {},
-    modifier: Modifier = Modifier,
+    event: Flow<LoginViewModel.UiEvent> = Channel<LoginViewModel.UiEvent>().receiveAsFlow(),
+    onLoginClicked: (UserDomain)->Unit = {},
+    onSignUpClicked: (UserDomain)->Unit = {},
+    onTaskDone: ()->Unit = {}
 ) {
-    var user by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var user by remember { mutableStateOf("yerih") }
+    var password by remember { mutableStateOf("password") }
+    
+    LaunchedEffect(key1 = Unit){
+        event.collect{uiEvent ->
+            when(uiEvent){
+                is NavigateToHome -> onTaskDone()
+                is Toast -> Toast(uiEvent.msg)
+                is NavigateToSignUp -> onSignUpClicked(uiEvent.user)
+            }
+        }
+    }
 
     Box(
         Modifier
@@ -63,14 +77,14 @@ fun LoginScreen(
 
             TextField(
                 value = user,
-                onValueChange = { user = it },
+                onValueChange = { user = it.trim() },
                 label = { Text(text = "User") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 modifier = Modifier.fillMaxWidth()
             )
             TextField(
                 value = password,
-                onValueChange = { password = it },
+                onValueChange = { password = it.trim() },
                 label = { Text(text = "Password") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 modifier = Modifier.fillMaxWidth()
@@ -80,11 +94,10 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 30.dp, horizontal = 30.dp),
-                onClick = {}
+                onClick = {onLoginClicked(UserDomain(user,  password))}
             ) {
                 Text(text = "Log in")
             }
-//            Text(text = "UserTask Screen", textAlign = TextAlign.Center, fontSize = 45.sp)
         }
     }
 }
