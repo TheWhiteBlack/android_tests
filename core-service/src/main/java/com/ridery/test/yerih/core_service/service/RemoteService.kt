@@ -1,6 +1,7 @@
 package com.ridery.test.yerih.core_service.service
 
 import com.google.gson.GsonBuilder
+import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.ridery.test.yerih.core_service.models.PostBody
 import com.ridery.test.yerih.core_service.models.PostResponse
 import okhttp3.OkHttpClient
@@ -18,7 +19,7 @@ interface RemoteService {
         private const val urlBase = "https://jsonplaceholder.typicode.com/"
         val gson = GsonBuilder().setLenient().create()
         val gsonConverter = GsonConverterFactory.create(gson)
-        val interceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+        val interceptor = OkHttpProfilerInterceptor()
         val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
         fun buildRetrofit(
