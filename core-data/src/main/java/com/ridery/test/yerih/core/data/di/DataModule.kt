@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.flowOf
 import com.ridery.test.yerih.core.data.UserRepository
 import com.ridery.test.yerih.core.data.UserRepositoryImpl
 import com.ridery.test.yerih.core.database.UserEntity
+import com.ridery.test.yerih.core.domain.ResultOp
 import com.ridery.test.yerih.core.domain.UserDomain
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -45,6 +46,10 @@ class FakeUserRepository @Inject constructor() : UserRepository {
 
     override suspend fun add(user: UserDomain) {
         throw NotImplementedError()
+    }
+
+    override suspend fun post(user: UserDomain): ResultOp<Int> {
+        return ResultOp(200)
     }
 }
 

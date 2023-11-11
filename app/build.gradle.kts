@@ -106,6 +106,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
+    //Plugin de Http
+    implementation("com.localebro:okhttpprofiler:1.0.8")
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

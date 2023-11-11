@@ -60,10 +60,9 @@ class LoginViewModel @Inject constructor(
         userRepository.getUsers().let{ users ->
             if(users.contains(user))
                 _event.send(UiEvent.NavigateToHome(user))
-            else {
-                saveUser(user)
+            else
                 _event.send(UiEvent.ToastMsg("User no registered"))
-            }
+
         }
     }
 }

@@ -32,11 +32,4 @@ data class UserEntity(
     var uid: Int = 0
 }
 
-@Dao
-interface UserTaskDao {
-    @Query("SELECT * FROM userentity ORDER BY uid DESC LIMIT 10")
-    fun getUsers(): List<UserEntity>
 
-    @Insert
-    suspend fun insertUserTask(item: UserEntity)
-}

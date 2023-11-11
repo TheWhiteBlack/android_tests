@@ -16,21 +16,44 @@
 
 package com.ridery.test.yerih.core.data
 
+import com.google.gson.Gson
 import com.ridery.test.yerih.core.database.UserTaskDao
+import com.ridery.test.yerih.core.domain.ResultOp
 import com.ridery.test.yerih.core.domain.UserDomain
+import com.ridery.test.yerih.core_service.RemoteDataSource
+import com.ridery.test.yerih.core_service.models.PostBody
+import retrofit2.HttpException
 import javax.inject.Inject
 
 interface UserRepository {
     suspend fun getUsers(): List<UserDomain>
     suspend fun add(user: UserDomain)
+
+    suspend fun post(user: UserDomain): ResultOp<Int>
 }
 
 class UserRepositoryImpl @Inject constructor(
-    private val userTaskDao: UserTaskDao
+    private val userTaskDao: UserTaskDao,
+    private val remoteData: RemoteDataSource,
 ) : UserRepository {
 
     override suspend fun getUsers(): List<UserDomain> = userTaskDao.getUsers().toDomain()
 
     override suspend fun add(user: UserDomain) = userTaskDao.insertUserTask(user.toEntityDB())
+    override suspend fun post(user: UserDomain): ResultOp<Int> {
+        return try{
+            remoteData.post(PostBody(
+                title = user.username,
+                userId = 1,
+                body = "user registered"
+            ))
+            ResultOp(200)
+        }catch (httpE: HttpException){
+            val errorServer = Gson().asError(httpE)
+            ResultOp(null, error = errorServer)
+        }catch (e: Exception){
+            ResultOp(null, Error(e.message))
+        }
+    }
 
 }

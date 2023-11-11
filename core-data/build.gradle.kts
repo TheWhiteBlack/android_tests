@@ -51,6 +51,7 @@ android {
 
 dependencies {
     implementation(project(":core-database"))
+    implementation(project(":core-service"))
     implementation(project(":core"))
 
     // Arch Components
@@ -58,6 +59,7 @@ dependencies {
     kapt(libs.hilt.compiler)
 
     implementation(libs.kotlinx.coroutines.android)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Local tests: jUnit, coroutines, Android runner
     testImplementation(libs.junit)

@@ -31,11 +31,10 @@ object Routes{
 }
 
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 fun NavGraphBuilder.userNavGraph(navController: NavController){
     navigation(
         route = graph,
-        startDestination = signin,
+        startDestination = home,
     ){
         composable(route = signin){
             val logViewModel = it.sharedViewModel<LoginViewModel>(navController = navController)
