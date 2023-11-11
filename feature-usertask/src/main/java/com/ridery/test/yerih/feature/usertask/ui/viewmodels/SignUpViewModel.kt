@@ -27,7 +27,7 @@ class SignUpViewModel @Inject constructor(
     }
     private fun saveUser(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) { userRepository.add(user) }
 
-    fun checkCredentials(user: String, password: String, confirm: String) = viewModelScope.launch {
+    fun checkCredentials(user: String, password: String, confirm: String) = viewModelScope.launch(Dispatchers.IO) {
         if(user.isEmpty()){
             _event.send(UiEvent.ToastMsg("User cannot be empty"))
             return@launch
@@ -40,7 +40,12 @@ class SignUpViewModel @Inject constructor(
             _event.send(UiEvent.ToastMsg("Password must be greater than 7 characters"))
             return@launch
         }
+        val newUser = UserDomain(user, password)
+        if(userRepository.getUsers().contains(newUser)){
+            _event.send(UiEvent.ToastMsg("This user is registered. You can log in."))
+            return@launch
+        }
         _event.send(UiEvent.ToastMsg("User registered! You can log in now!"))
-        saveUser(UserDomain(user, password))
+        saveUser(newUser)
     }
 }
