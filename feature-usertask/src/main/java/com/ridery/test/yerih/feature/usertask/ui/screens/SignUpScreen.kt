@@ -8,7 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -23,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -45,6 +51,8 @@ fun SignUpScreen(
     var user by remember { mutableStateOf(user) }
     var password by remember { mutableStateOf("password") }
     var confirm by remember { mutableStateOf("password") }
+    var passVisible by remember { mutableStateOf(false) }
+    var confVisible by remember { mutableStateOf(false) }
     val context = LocalContext.current
     var userError = false
     var passError = false
@@ -95,7 +103,15 @@ fun SignUpScreen(
                 isError = passError,
                 label = { Text(text = if(!passError)"Password" else "check here!") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                visualTransformation = PasswordVisualTransformation(),
+                visualTransformation = if(!passVisible) PasswordVisualTransformation() else VisualTransformation.None,
+                trailingIcon = {
+                    IconButton(onClick = { passVisible = !passVisible }) {
+                        Icon(
+                            imageVector = if (passVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+                            contentDescription = ""
+                        )
+                    }
+                },
                 shape = corners,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -107,7 +123,15 @@ fun SignUpScreen(
                 isError = confError,
                 label = { Text(text = if(!confError) "Confirm password" else "check here!") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                visualTransformation = PasswordVisualTransformation(),
+                visualTransformation = if(!confVisible) PasswordVisualTransformation() else VisualTransformation.None,
+                trailingIcon = {
+                    IconButton(onClick = { confVisible = !confVisible }) {
+                        Icon(
+                            imageVector = if (confVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+                            contentDescription = ""
+                        )
+                    }
+                },
                 shape = corners,
                 modifier = Modifier.fillMaxWidth()
             )

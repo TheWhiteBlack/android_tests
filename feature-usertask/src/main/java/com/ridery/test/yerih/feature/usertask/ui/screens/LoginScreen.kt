@@ -57,7 +57,7 @@ fun LoginScreen(
     val corners = RoundedCornerShape(30.dp)
     var user by remember { mutableStateOf("yerih") }
     var password by remember { mutableStateOf("password") }
-    var passVisible by remember { mutableStateOf(true) }
+    var passVisible by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     LaunchedEffect(key1 = Unit) {
@@ -100,7 +100,7 @@ fun LoginScreen(
                 modifier = Modifier.padding(bottom = 50.dp)
             )
             Text(
-                text = "enter your credentials",
+                text = "Enter your credentials",
                 style = Font.bodyLarge,
                 modifier = Modifier.padding(bottom = 20.dp)
             )
@@ -118,7 +118,7 @@ fun LoginScreen(
                 onValueChange = { password = it.trim() },
                 label = { Text(text = "Password") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                visualTransformation = if (passVisible) PasswordVisualTransformation() else VisualTransformation.None,
+                visualTransformation = if (!passVisible) PasswordVisualTransformation() else VisualTransformation.None,
                 trailingIcon = {
                     IconButton(onClick = { passVisible = !passVisible }) {
                         Icon(
@@ -131,7 +131,7 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
-                text = "Sign up?",
+                text = "Sign up? Click this text",
                 style = Font.bodyLarge,
                 textAlign = TextAlign.End,
                 modifier = Modifier.clickable { onSignUpClicked(UserDomain(user, password)) }
