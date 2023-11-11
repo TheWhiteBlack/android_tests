@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.ridery.test.yerih.core.domain.UserDomain
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.RideryTestTheme
@@ -58,16 +59,17 @@ fun LoginScreen(
         }
     }
 
-    Box(
-        Modifier
+    ConstraintLayout(
+        modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 30.dp),
-        contentAlignment = Alignment.Center
+
     ) {
+        val (group) = createRefs()
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(15.dp),
-
+            modifier = Modifier.constrainAs(group){ centerTo(parent)}
             ) {
 
             Text(
