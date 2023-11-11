@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    id("org.jetbrains.kotlin.plugin.parcelize") version "1.6.0"
 }
 
 android {
@@ -31,6 +32,8 @@ android {
         testInstrumentationRunner = "com.ridery.test.yerih.core.testing.HiltTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
+
+
 
     buildFeatures {
         compose = true
@@ -60,7 +63,9 @@ dependencies {
     implementation(project(":core"))
     androidTestImplementation(project(":core-testing"))
 
+
     // Core Android dependencies
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
 
     // Arch Components

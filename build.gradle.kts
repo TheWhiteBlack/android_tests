@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-
-
 // Root build.gradle.kts

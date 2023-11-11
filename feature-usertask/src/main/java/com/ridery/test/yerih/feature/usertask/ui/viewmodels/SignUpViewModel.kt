@@ -15,5 +15,6 @@ class SignUpViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
+    var user: UserDomain = UserDomain()
     private fun saveUser(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) { userRepository.add(user) }
 }

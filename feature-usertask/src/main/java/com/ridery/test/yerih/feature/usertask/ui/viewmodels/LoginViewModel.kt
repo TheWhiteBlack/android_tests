@@ -58,7 +58,6 @@ class LoginViewModel @Inject constructor(
             password.ifEmpty { _event.send(UiEvent.ToastMsg("Password can't be empty")); return@launch }
         }
         userRepository.getUsers().let{ users ->
-            log("Users = $users, user = $user, contains? ${users.contains(user)}")
             if(users.contains(user))
                 _event.send(UiEvent.NavigateToHome(user))
             else {

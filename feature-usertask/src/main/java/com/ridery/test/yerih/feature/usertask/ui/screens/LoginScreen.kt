@@ -42,7 +42,7 @@ fun LoginScreen(
     event: Flow<LoginViewModel.UiEvent> = Channel<LoginViewModel.UiEvent>().receiveAsFlow(),
     onLoginClicked: (UserDomain)->Unit = {},
     onSignUpClicked: (UserDomain)->Unit = {},
-    onTaskDone: (route: String)->Unit = {}
+    onTaskDone: (String)->Unit = {_->}
 ) {
     var user by remember { mutableStateOf("yerih") }
     var password by remember { mutableStateOf("password") }
@@ -51,9 +51,9 @@ fun LoginScreen(
     LaunchedEffect(key1 = Unit){
         event.collect{uiEvent ->
             when(uiEvent){
-                is NavigateToHome -> onTaskDone(Routes.home)
+                is NavigateToHome -> onTaskDone(Routes.home.replace(Routes.Args.user, uiEvent.user.username))
                 is ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
-                is NavigateToSignUp -> onTaskDone(Routes.signup)
+                is NavigateToSignUp -> onTaskDone(Routes.signup.replace(Routes.Args.user,uiEvent.user.username))
             }
         }
     }
