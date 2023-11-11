@@ -24,25 +24,20 @@ import javax.inject.Provider;
 public final class HomeViewModel_Factory implements Factory<HomeViewModel> {
   private final Provider<UserRepository> userRepositoryProvider;
 
-  private final Provider<String> userProvider;
-
-  public HomeViewModel_Factory(Provider<UserRepository> userRepositoryProvider,
-      Provider<String> userProvider) {
+  public HomeViewModel_Factory(Provider<UserRepository> userRepositoryProvider) {
     this.userRepositoryProvider = userRepositoryProvider;
-    this.userProvider = userProvider;
   }
 
   @Override
   public HomeViewModel get() {
-    return newInstance(userRepositoryProvider.get(), userProvider.get());
+    return newInstance(userRepositoryProvider.get());
   }
 
-  public static HomeViewModel_Factory create(Provider<UserRepository> userRepositoryProvider,
-      Provider<String> userProvider) {
-    return new HomeViewModel_Factory(userRepositoryProvider, userProvider);
+  public static HomeViewModel_Factory create(Provider<UserRepository> userRepositoryProvider) {
+    return new HomeViewModel_Factory(userRepositoryProvider);
   }
 
-  public static HomeViewModel newInstance(UserRepository userRepository, String user) {
-    return new HomeViewModel(userRepository, user);
+  public static HomeViewModel newInstance(UserRepository userRepository) {
+    return new HomeViewModel(userRepository);
   }
 }
