@@ -6,11 +6,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.ridery.test.yerih.core.domain.UserDomain
 import com.ridery.test.yerih.core.sharedViewModel
 import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes.home
 import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes.graph
-import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes.signIn
+import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes.signin
 import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes.signup
 import com.ridery.test.yerih.feature.usertask.ui.screens.HomeScreen
 import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel
@@ -21,7 +20,7 @@ import com.ridery.test.yerih.feature.usertask.ui.viewmodels.SignUpViewModel
 
 object Routes{
 
-    const val signIn = "main/sign_in"
+    const val signin = "main/sign_in"
     const val signup = "main/sign_up/${Args.user}"
     const val home = "main/home/{user}"
     const val graph = "main"
@@ -36,9 +35,9 @@ object Routes{
 fun NavGraphBuilder.userNavGraph(navController: NavController){
     navigation(
         route = graph,
-        startDestination = signup,
+        startDestination = signin,
     ){
-        composable(route = signIn){
+        composable(route = signin){
             val logViewModel = it.sharedViewModel<LoginViewModel>(navController = navController)
             LoginScreen(
                 event = logViewModel.event,

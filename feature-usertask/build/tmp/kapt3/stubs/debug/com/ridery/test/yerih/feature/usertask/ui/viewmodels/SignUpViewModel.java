@@ -1,12 +1,12 @@
 package com.ridery.test.yerih.feature.usertask.ui.viewmodels;
 
-@kotlin.Metadata(mv = {1, 9, 0}, k = 1, xi = 48, d1 = {"\u00008\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\u0010\u000e\n\u0002\b\u0005\b\u0007\u0018\u00002\u00020\u0001:\u0001\u0018B\u000f\b\u0007\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u00a2\u0006\u0002\u0010\u0004J\u001e\u0010\u0012\u001a\u00020\u00132\u0006\u0010\f\u001a\u00020\u00142\u0006\u0010\u0015\u001a\u00020\u00142\u0006\u0010\u0016\u001a\u00020\u0014J\u0010\u0010\u0017\u001a\u00020\u00132\u0006\u0010\f\u001a\u00020\rH\u0002R\u0014\u0010\u0005\u001a\b\u0012\u0004\u0012\u00020\u00070\u0006X\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0017\u0010\b\u001a\b\u0012\u0004\u0012\u00020\u00070\t\u00a2\u0006\b\n\u0000\u001a\u0004\b\n\u0010\u000bR\u001a\u0010\f\u001a\u00020\rX\u0086\u000e\u00a2\u0006\u000e\n\u0000\u001a\u0004\b\u000e\u0010\u000f\"\u0004\b\u0010\u0010\u0011R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0019"}, d2 = {"Lcom/ridery/test/yerih/feature/usertask/ui/viewmodels/SignUpViewModel;", "Landroidx/lifecycle/ViewModel;", "userRepository", "Lcom/ridery/test/yerih/core/data/UserRepository;", "(Lcom/ridery/test/yerih/core/data/UserRepository;)V", "_event", "Lkotlinx/coroutines/channels/Channel;", "Lcom/ridery/test/yerih/feature/usertask/ui/viewmodels/SignUpViewModel$UiEvent;", "event", "Lkotlinx/coroutines/flow/Flow;", "getEvent", "()Lkotlinx/coroutines/flow/Flow;", "user", "Lcom/ridery/test/yerih/core/domain/UserDomain;", "getUser", "()Lcom/ridery/test/yerih/core/domain/UserDomain;", "setUser", "(Lcom/ridery/test/yerih/core/domain/UserDomain;)V", "checkCredentials", "Lkotlinx/coroutines/Job;", "", "password", "confirm", "saveUser", "UiEvent", "feature-usertask_debug"})
+@kotlin.Metadata(mv = {1, 9, 0}, k = 1, xi = 48, d1 = {"\u0000<\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u000e\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0002\b\u0007\u0018\u00002\u00020\u0001:\u0001\u0018B\u000f\b\u0007\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u00a2\u0006\u0002\u0010\u0004J\u001e\u0010\u0012\u001a\u00020\u00132\u0006\u0010\f\u001a\u00020\r2\u0006\u0010\u0014\u001a\u00020\r2\u0006\u0010\u0015\u001a\u00020\rJ\u0010\u0010\u0016\u001a\u00020\u00132\u0006\u0010\f\u001a\u00020\u0017H\u0002R\u0014\u0010\u0005\u001a\b\u0012\u0004\u0012\u00020\u00070\u0006X\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0017\u0010\b\u001a\b\u0012\u0004\u0012\u00020\u00070\t\u00a2\u0006\b\n\u0000\u001a\u0004\b\n\u0010\u000bR\u001a\u0010\f\u001a\u00020\rX\u0086\u000e\u00a2\u0006\u000e\n\u0000\u001a\u0004\b\u000e\u0010\u000f\"\u0004\b\u0010\u0010\u0011R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0019"}, d2 = {"Lcom/ridery/test/yerih/feature/usertask/ui/viewmodels/SignUpViewModel;", "Landroidx/lifecycle/ViewModel;", "userRepository", "Lcom/ridery/test/yerih/core/data/UserRepository;", "(Lcom/ridery/test/yerih/core/data/UserRepository;)V", "_event", "Lkotlinx/coroutines/channels/Channel;", "Lcom/ridery/test/yerih/feature/usertask/ui/viewmodels/SignUpViewModel$UiEvent;", "event", "Lkotlinx/coroutines/flow/Flow;", "getEvent", "()Lkotlinx/coroutines/flow/Flow;", "user", "", "getUser", "()Ljava/lang/String;", "setUser", "(Ljava/lang/String;)V", "checkCredentials", "Lkotlinx/coroutines/Job;", "password", "confirm", "saveUser", "Lcom/ridery/test/yerih/core/domain/UserDomain;", "UiEvent", "feature-usertask_debug"})
 @dagger.hilt.android.lifecycle.HiltViewModel
 public final class SignUpViewModel extends androidx.lifecycle.ViewModel {
     @org.jetbrains.annotations.NotNull
     private final com.ridery.test.yerih.core.data.UserRepository userRepository = null;
     @org.jetbrains.annotations.NotNull
-    private com.ridery.test.yerih.core.domain.UserDomain user;
+    private java.lang.String user = "";
     @org.jetbrains.annotations.NotNull
     private final kotlinx.coroutines.channels.Channel<com.ridery.test.yerih.feature.usertask.ui.viewmodels.SignUpViewModel.UiEvent> _event = null;
     @org.jetbrains.annotations.NotNull
@@ -19,12 +19,12 @@ public final class SignUpViewModel extends androidx.lifecycle.ViewModel {
     }
     
     @org.jetbrains.annotations.NotNull
-    public final com.ridery.test.yerih.core.domain.UserDomain getUser() {
+    public final java.lang.String getUser() {
         return null;
     }
     
     public final void setUser(@org.jetbrains.annotations.NotNull
-    com.ridery.test.yerih.core.domain.UserDomain p0) {
+    java.lang.String p0) {
     }
     
     @org.jetbrains.annotations.NotNull

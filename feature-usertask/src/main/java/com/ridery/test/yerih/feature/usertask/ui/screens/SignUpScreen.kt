@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -20,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -38,6 +41,7 @@ fun SignUpScreen(
     checkCredentials: (String, String, String)->Unit = {_,_,_->},
     onTaskDone: ()->Unit = {}
 ){
+    val corners = RoundedCornerShape(30.dp)
     var user by remember { mutableStateOf(user) }
     var password by remember { mutableStateOf("password") }
     var confirm by remember { mutableStateOf("password") }
@@ -74,15 +78,16 @@ fun SignUpScreen(
                 modifier = Modifier.padding(bottom = 50.dp)
             )
 
-            TextField(
+            OutlinedTextField(
                 value = user,
                 onValueChange = { user = it.trim().also { userError = it.isEmpty() } },
                 isError = userError,
                 label = { Text(text = if(!userError)"User" else "check here!") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                shape = corners,
                 modifier = Modifier.fillMaxWidth()
             )
-            TextField(
+            OutlinedTextField(
                 value = password,
                 onValueChange = {
                     password = it.trim()
@@ -90,9 +95,11 @@ fun SignUpScreen(
                 isError = passError,
                 label = { Text(text = if(!passError)"Password" else "check here!") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                visualTransformation = PasswordVisualTransformation(),
+                shape = corners,
                 modifier = Modifier.fillMaxWidth()
             )
-            TextField(
+            OutlinedTextField(
                 value = confirm,
                 onValueChange = {
                     confirm = it.trim()
@@ -100,6 +107,8 @@ fun SignUpScreen(
                 isError = confError,
                 label = { Text(text = if(!confError) "Confirm password" else "check here!") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                visualTransformation = PasswordVisualTransformation(),
+                shape = corners,
                 modifier = Modifier.fillMaxWidth()
             )
 
