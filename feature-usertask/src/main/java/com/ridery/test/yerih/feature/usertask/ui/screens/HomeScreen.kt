@@ -9,7 +9,7 @@ import com.ridery.test.yerih.core.ui.Font
 
 @Composable
 fun HomeScreen(
-    userDomain: UserDomain = UserDomain(),
+    user: String,
 ){
     Box(
         contentAlignment = Alignment.Center

@@ -17,7 +17,7 @@ class SignUpViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    var user: UserDomain = UserDomain()
+    var user: String = ""
 
     private val _event = Channel<UiEvent>()
     val event = _event.receiveAsFlow()

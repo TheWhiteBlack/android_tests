@@ -16,6 +16,7 @@ import com.ridery.test.yerih.feature.usertask.ui.screens.HomeScreen
 import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel
 import com.ridery.test.yerih.feature.usertask.ui.screens.LoginScreen
 import com.ridery.test.yerih.feature.usertask.ui.screens.SignUpScreen
+import com.ridery.test.yerih.feature.usertask.ui.viewmodels.HomeViewModel
 import com.ridery.test.yerih.feature.usertask.ui.viewmodels.SignUpViewModel
 
 object Routes{
@@ -49,9 +50,9 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
 
         composable(route = signup){
             val supViewModel = it.sharedViewModel<SignUpViewModel>(navController)
-            supViewModel.user = UserDomain(username = it.arguments?.getString("user")?:"")
+            supViewModel.user = it.arguments?.getString("user")?:""
             SignUpScreen(
-                user = supViewModel.user.username,
+                user = supViewModel.user,
                 event = supViewModel.event,
                 checkCredentials = supViewModel::checkCredentials,
                 onTaskDone = { navController.popBackStack() }
@@ -59,7 +60,11 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
         }
 
         composable(route = home){
-            HomeScreen()
+            val homeViewModel = it.sharedViewModel<HomeViewModel>(navController)
+            homeViewModel.user = it.arguments?.getString("user")?:""
+            HomeScreen(
+                user = homeViewModel.user,
+            )
         }
     }
 
