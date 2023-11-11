@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -35,17 +36,30 @@ fun ModalDrawerContent(
         Text(
             text = "Edit profile",
             fontSize = 18.sp,
-            modifier = Modifier.padding(16.dp).clickable {
-                onEditClicked()
-            }
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable {
+                    onEditClicked()
+                }
         )
         Text(
             text = "Log out",
             fontSize = 18.sp,
-            modifier = Modifier.padding(16.dp).clickable {
-                onLogOutClicked()
-            }
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable {
+                    onLogOutClicked()
+                }
         )
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun DefaultPreview(){
+    RideryTestTheme{
+        ModalDrawerContent()
     }
 }
 

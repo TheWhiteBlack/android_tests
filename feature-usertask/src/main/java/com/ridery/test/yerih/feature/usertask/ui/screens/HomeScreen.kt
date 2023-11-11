@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -48,21 +49,26 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     user: String,
     event: Flow<UiEvent> = Channel<UiEvent>().receiveAsFlow(),
-    onSwipe: ()->Unit = {},
-    onEditClicked: ()->Unit = {},
-    onLogOutClicked: ()->Unit = {},
+    onSwipe: () -> Unit = {},
+    onEditClicked: () -> Unit = {},
+    onLogOutClicked: () -> Unit = {},
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     ModalNavigationDrawer(
         drawerState = drawerState,
-        drawerContent = { ModalDrawerSheet { ModalDrawerContent() } },
+        drawerContent = { ModalDrawerSheet {
+                ModalDrawerContent(
+                    onEditClicked = onEditClicked,
+                    onLogOutClicked = onLogOutClicked
+                )
+            }
+        },
     ) {
         Scaffold(
             floatingActionButton = { FloatingButton(scope, drawerState) }
@@ -71,8 +77,6 @@ fun HomeScreen(
                 user = user,
                 event = event,
                 onSwipe = onSwipe,
-                onEditClicked = onEditClicked,
-                onLogOutClicked = onLogOutClicked,
                 modifier = Modifier.padding(contentPadding)
             )
         }
@@ -84,11 +88,9 @@ fun HomeScreen(
 fun HomeScreenContent(
     user: String,
     event: Flow<UiEvent> = Channel<UiEvent>().receiveAsFlow(),
-    onSwipe: ()->Unit = {},
-    onEditClicked: ()->Unit = {},
-    onLogOutClicked: ()->Unit = {},
+    onSwipe: () -> Unit = {},
     modifier: Modifier,
-){
+) {
 
     val context = LocalContext.current
     val singapore = LatLng(1.35, 103.87)
@@ -98,14 +100,12 @@ fun HomeScreenContent(
     var refreshing by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = refreshing, key2 = event) {
-        if (refreshing) {
-            delay(1500)
-            refreshing = false
-        }
 
-        event.collect{uiEvent ->
-            when(uiEvent){
+        event.collect { uiEvent ->
+            when (uiEvent) {
                 is UiEvent.ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
+
+                UiEvent.SwipeFinish -> refreshing = false
             }
         }
     }
@@ -157,7 +157,6 @@ fun HomeScreenContent(
         }
     }
 }
-
 
 
 @Preview(showBackground = true)

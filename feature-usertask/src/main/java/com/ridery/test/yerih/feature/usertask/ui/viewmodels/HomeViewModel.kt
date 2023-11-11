@@ -22,6 +22,7 @@ class HomeViewModel@Inject constructor(
     private val _event = Channel<UiEvent>()
     val event = _event.receiveAsFlow()
     sealed interface UiEvent{
+        data object SwipeFinish : UiEvent
         data class ToastMsg(val msg: String) : UiEvent
     }
 
@@ -36,6 +37,7 @@ class HomeViewModel@Inject constructor(
 
     fun onSwipe() = viewModelScope.launch {
         post("swiping user")
+        _event.send(SwipeFinish)
     }
 
 
