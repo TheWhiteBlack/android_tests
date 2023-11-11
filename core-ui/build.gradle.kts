@@ -68,6 +68,7 @@ dependencies {
     api ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     api (libs.androidx.navigation.compose)
     api ("androidx.compose.material:material-icons-extended:1.0.1")
+    api ("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
 
 
     //Hilt

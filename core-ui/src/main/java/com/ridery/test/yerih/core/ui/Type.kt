@@ -33,7 +33,8 @@ object Font {
         letterSpacing = 0.5.sp
     )
     val titleLarge = bodyLarge.copy(
-        fontSize = 36.sp
+        fontSize = 36.sp,
+        lineHeight = 30.sp,
     )
 
     val blueLink = bodyLarge.copy(color = Color.Blue)
