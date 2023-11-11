@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FloatingButton(
-    scope: CoroutineScope ,
-    drawerState: DrawerState ,
+    scope: CoroutineScope,
+    drawerState: DrawerState,
 ){
     ExtendedFloatingActionButton(
         text = { Text("User settings") },
