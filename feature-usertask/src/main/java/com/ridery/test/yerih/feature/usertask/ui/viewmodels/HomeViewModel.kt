@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ridery.test.yerih.core.data.UserRepository
 import com.ridery.test.yerih.core.domain.UserDomain
-import com.ridery.test.yerih.core.log
 import com.ridery.test.yerih.feature.usertask.ui.viewmodels.HomeViewModel.UiEvent.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -26,14 +25,17 @@ class HomeViewModel@Inject constructor(
         data class ToastMsg(val msg: String) : UiEvent
     }
 
-    init {
-        viewModelScope.launch {
-            val result = userRepository.post(UserDomain("test retrofit"))
-            if(result.isSuccess)
-                _event.send(ToastMsg("Request success: code = ${result.result}"))
-            else
-                _event.send(ToastMsg("Request error: message = ${result.error!!.message}"))
-        }
+
+    private suspend fun post(user: String = ""){
+        val result = userRepository.post(UserDomain(user))
+        if(result.isSuccess)
+            _event.send(ToastMsg("Request success: code = ${result.result}"))
+        else
+            _event.send(ToastMsg("Request error: message = ${result.error!!.message}"))
+    }
+
+    fun onSwipe() = viewModelScope.launch {
+        post("swiping user")
     }
 
 

@@ -62,7 +62,8 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
             homeViewModel.user = it.arguments?.getString("user")?:""
             HomeScreen(
                 user = homeViewModel.user,
-                event = homeViewModel.event
+                event = homeViewModel.event,
+                onSwipe = homeViewModel::onSwipe
             )
         }
     }
