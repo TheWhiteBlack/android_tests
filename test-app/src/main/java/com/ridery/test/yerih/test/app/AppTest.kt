@@ -18,11 +18,11 @@ package com.ridery.test.yerih.test.app
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import com.ridery.test.yerih.core.data.di.fakeUserTasks
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
 import org.junit.Test
-import com.ridery.test.yerih.core.data.di.fakeUserTasks
 import com.ridery.test.yerih.ui.MainActivity
 
 @HiltAndroidTest

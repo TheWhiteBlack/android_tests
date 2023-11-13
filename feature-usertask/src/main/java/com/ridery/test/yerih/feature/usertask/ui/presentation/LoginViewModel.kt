@@ -56,13 +56,12 @@ class LoginViewModel @Inject constructor(
             username.ifEmpty { _event.send(UiEvent.ToastMsg("Username can't be empty")); return@launch}
             password.ifEmpty { _event.send(UiEvent.ToastMsg("Password can't be empty")); return@launch }
         }
-        userRepository.getUsers().let{ users ->
-            if(users.contains(user))
+        userRepository.getUsers().find{ user.username == it.username }?.let{
+            if(it.password == user.password)
                 _event.send(UiEvent.NavigateToHome(user))
             else
-                _event.send(UiEvent.ToastMsg("User no registered"))
-
-        }
+                _event.send(UiEvent.ToastMsg("Check your credentials"))
+        }?:_event.send(UiEvent.ToastMsg("User no registered"))
     }
 }
 

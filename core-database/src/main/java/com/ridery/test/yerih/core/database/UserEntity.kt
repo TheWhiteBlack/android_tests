@@ -27,9 +27,9 @@ import kotlinx.coroutines.flow.Flow
 data class UserEntity(
     val username: String,
     val password: String,
-) {
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0
+) {
 }
 
 

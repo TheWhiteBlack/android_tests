@@ -16,6 +16,7 @@
 
 package com.ridery.test.yerih.core.data
 
+import android.util.Log
 import com.google.gson.Gson
 import com.ridery.test.yerih.core.database.UserTaskDao
 import com.ridery.test.yerih.core.domain.ResultOp
