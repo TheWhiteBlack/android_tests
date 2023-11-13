@@ -142,7 +142,10 @@ fun UpdateUserScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 30.dp, horizontal = 30.dp),
-                onClick = {checkCredentials(user.copy(password = password), confirm)}
+                onClick = {checkCredentials(user.copy(
+                    username = username,
+                    password = password
+                ), confirm)}
             ) {
                 Text(text = "Update user")
             }
