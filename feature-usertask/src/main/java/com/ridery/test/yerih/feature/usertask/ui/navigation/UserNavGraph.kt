@@ -21,14 +21,21 @@ import com.ridery.test.yerih.feature.usertask.ui.screens.UpdateUserScreen
 
 object Routes{
 
-    const val updateUser = "main/update_user/${Args.user}"
+    const val updateUser = "main/update_user/${Args.userId}"
     const val signin = "main/sign_in"
-    const val signup = "main/sign_up/${Args.user}"
-    const val home = "main/home/{user}"
+    const val signup = "main/sign_up/${Args.userName}"
+    const val home = "main/home/${Args.userId}"
     const val graph = "main"
 
     object Args{
-        const val user = "{user}"
+        const val userId = "{userId}"
+        const val userName = "{userName}"
+        val userIdAsRoute = run {
+            userId.replace("{", "").replace("}", "")
+        }
+        val userNameAsRoute = run {
+            userName.replace("{", "").replace("}", "")
+        }
     }
 }
 
@@ -50,7 +57,7 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
 
         composable(route = signup){
             val supViewModel = it.sharedViewModel<SignUpViewModel>(navController)
-            supViewModel.user = it.arguments?.getString("user")?:""
+            supViewModel.user = it.arguments?.getString(Routes.Args.userNameAsRoute)?:""
             SignUpScreen(
                 user = supViewModel.user,
                 event = supViewModel.event,
@@ -61,20 +68,23 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
 
         composable(route = home){
             val homeViewModel = it.sharedViewModel<HomeViewModel>(navController)
-            homeViewModel.user = it.arguments?.getString("user")?:""
+            homeViewModel.userId = it.arguments?.getInt(Routes.Args.userIdAsRoute)?:0
+//            homeViewModel.user = it.arguments?.getInt(Routes.Args.userAsArg)?:""
             HomeScreen(
                 user = homeViewModel.user,
                 event = homeViewModel.event,
                 onSwipe = homeViewModel::onSwipe,
                 onEditClicked = {navController.navigate(updateUser
-                    .replace(Routes.Args.user, homeViewModel.user))}
+                    .replace(Routes.Args.userId, homeViewModel.user))}
             )
         }
 
         composable(route = updateUser){
             val supViewModel = it.sharedViewModel<UpdateUserViewModel>(navController)
-            supViewModel.user = it.arguments?.getString("user")?:""
+            supViewModel.userId = it.arguments?.getInt(Routes.Args.userIdAsRoute)?:0
+//            supViewModel.username = it.arguments?.getString(Routes.Args.userAsArg)?:""
             UpdateUserScreen(
+                username = supViewModel.username,
                 user = supViewModel.user,
                 event = supViewModel.event,
                 checkCredentials = supViewModel::checkCredentials,

@@ -17,7 +17,9 @@ class UpdateUserViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    var user: String = ""
+    var username: String = ""
+    var userId: Int = 0
+    lateinit var user: UserDomain
 
     private val _event = Channel<UiEvent>()
     val event = _event.receiveAsFlow()
@@ -27,24 +29,24 @@ class UpdateUserViewModel @Inject constructor(
     }
     private fun saveUser(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) { userRepository.add(user) }
 
-    fun checkCredentials(user: String, password: String, confirm: String) = viewModelScope.launch(Dispatchers.IO) {
-        if(user.isEmpty()){
+    fun checkCredentials(userP: UserDomain, confirm: String) = viewModelScope.launch(Dispatchers.IO) {
+        if(userP.username.isEmpty()){
             _event.send(UiEvent.ToastMsg("User cannot be empty"))
             return@launch
         }
-        if(password != confirm){
+        if(userP.password != confirm){
             _event.send(UiEvent.ToastMsg("Password must be equals to confirmation password"))
             return@launch
         }
-        if(password.length < 8){
+        if(userP.password.length < 8){
             _event.send(UiEvent.ToastMsg("Password must be greater than 7 characters"))
             return@launch
         }
-        userRepository.getUsers().find { it.username == user }?.let{
-            saveUser(it.copy(password = password))
+        userRepository.getUsers().find { it.uid == user.uid }?.let{
+            saveUser(it.copy(password = userP.password))
             _event.send(UiEvent.NavigateToHome(it))
             _event.send(UiEvent.ToastMsg("User updated!"))
-        }?:return@launch
+        }
 
     }
 }

@@ -17,6 +17,7 @@ class HomeViewModel@Inject constructor(
 ) : ViewModel() {
 
     var user: String = ""
+    var userId: Int = 0
 
 
     private val _event = Channel<UiEvent>()

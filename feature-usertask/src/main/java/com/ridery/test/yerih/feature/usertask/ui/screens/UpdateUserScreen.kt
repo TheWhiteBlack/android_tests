@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.ridery.test.yerih.core.domain.UserDomain
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.RideryTestTheme
 import com.ridery.test.yerih.feature.usertask.ui.presentation.UpdateUserViewModel
@@ -41,13 +42,14 @@ import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
 fun UpdateUserScreen(
-    user: String,
+    username: String,
+    user: UserDomain = UserDomain(),
     event: Flow<UpdateUserViewModel.UiEvent> = Channel<UpdateUserViewModel.UiEvent>().receiveAsFlow(),
-    checkCredentials: (String, String, String)->Unit = {_,_,_->},
+    checkCredentials: (UserDomain, String)->Unit = {_,_->},
     onTaskDone: ()->Unit = {}
 ){
     val corners = RoundedCornerShape(30.dp)
-    var user by remember { mutableStateOf(user) }
+    var username by remember { mutableStateOf(username) }
     var password by remember { mutableStateOf("password") }
     var confirm by remember { mutableStateOf("password") }
     var passVisible by remember { mutableStateOf(false) }
@@ -86,8 +88,8 @@ fun UpdateUserScreen(
             )
 
             OutlinedTextField(
-                value = user,
-                onValueChange = { user = it.trim().also { userError = it.isEmpty() } },
+                value = username,
+                onValueChange = { username = it.trim().also { userError = it.isEmpty() } },
                 isError = userError,
                 label = { Text(text = if(!userError)"User" else "check here!") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -139,7 +141,7 @@ fun UpdateUserScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 30.dp, horizontal = 30.dp),
-                onClick = {checkCredentials(user, password, confirm)}
+                onClick = {checkCredentials(user, confirm)}
             ) {
                 Text(text = "Update user")
             }

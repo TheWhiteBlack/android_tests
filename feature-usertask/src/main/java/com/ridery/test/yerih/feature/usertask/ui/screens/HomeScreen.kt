@@ -83,6 +83,7 @@ fun HomeScreen(
 @Composable
 fun HomeScreenContent(
     user: String,
+    userId: Int = 0,
     event: Flow<UiEvent> = Channel<UiEvent>().receiveAsFlow(),
     onSwipe: () -> Unit = {},
     modifier: Modifier,

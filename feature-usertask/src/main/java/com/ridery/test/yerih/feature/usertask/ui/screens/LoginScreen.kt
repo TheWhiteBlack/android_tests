@@ -63,7 +63,7 @@ fun LoginScreen(
             when (uiEvent) {
                 is NavigateToHome -> onTaskDone(
                     Routes.home.replace(
-                        Routes.Args.user,
+                        Routes.Args.userId,
                         uiEvent.user.username
                     )
                 )
@@ -71,7 +71,7 @@ fun LoginScreen(
                 is ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
                 is NavigateToSignUp -> onTaskDone(
                     Routes.signup.replace(
-                        Routes.Args.user,
+                        Routes.Args.userName,
                         uiEvent.user.username
                     )
                 )
