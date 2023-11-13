@@ -124,8 +124,9 @@ fun HomeScreenContent(
                 .padding(horizontal = 30.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            val (welcome, map, guide) = createRefs()
-            val guideLine1 = createGuidelineFromTop(0.5f)
+            val (welcome, map) = createRefs()
+            val guideHorzLine = createGuidelineFromTop(0.5f)
+            val guideForTitle = createGuidelineFromTop(0.15f)
 
 
             Text(
@@ -133,16 +134,13 @@ fun HomeScreenContent(
                 style = Font.titleLarge,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.constrainAs(welcome) {
-                    top.linkTo(parent.top, 40.dp)
                     centerHorizontallyTo(parent)
+                    centerAround(guideForTitle)
                 })
 
 
             Box(modifier = Modifier
-                .constrainAs(map) {
-                    centerHorizontallyTo(parent)
-                    top.linkTo(welcome.bottom, 40.dp)
-                }
+                .constrainAs(map) { centerAround(guideHorzLine) }
                 .clip(RoundedCornerShape(30.dp))
             ) {
 

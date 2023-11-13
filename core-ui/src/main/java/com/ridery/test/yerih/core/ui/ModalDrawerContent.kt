@@ -37,19 +37,17 @@ fun ModalDrawerContent(
             text = "Edit profile",
             fontSize = 18.sp,
             modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp)
-                .clickable {
-                    onEditClicked()
-                }
+                .clickable { onEditClicked() }
         )
         Text(
             text = "Log out",
             fontSize = 18.sp,
             modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp)
-                .clickable {
-                    onLogOutClicked()
-                }
+                .clickable { onLogOutClicked() }
         )
     }
 }
