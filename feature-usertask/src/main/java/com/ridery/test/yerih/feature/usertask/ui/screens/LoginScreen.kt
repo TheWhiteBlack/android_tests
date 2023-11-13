@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.ridery.test.yerih.core.domain.UserDomain
+import com.ridery.test.yerih.core.log
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.RideryTestTheme
 import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes
@@ -64,7 +65,7 @@ fun LoginScreen(
                 is NavigateToHome -> onTaskDone(
                     Routes.home.replace(
                         Routes.Args.userId,
-                        uiEvent.user.username
+                        "${uiEvent.user.uid}"
                     )
                 )
 

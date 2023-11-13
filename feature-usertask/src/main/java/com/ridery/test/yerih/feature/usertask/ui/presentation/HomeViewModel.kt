@@ -4,15 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ridery.test.yerih.core.data.UserRepository
 import com.ridery.test.yerih.core.domain.UserDomain
+import com.ridery.test.yerih.core.log
 import com.ridery.test.yerih.feature.usertask.ui.presentation.HomeViewModel.UiEvent.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel@Inject constructor(
+class HomeViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : ViewModel() {
 
@@ -22,15 +24,17 @@ class HomeViewModel@Inject constructor(
 
     private val _event = Channel<UiEvent>()
     val event = _event.receiveAsFlow()
-    sealed interface UiEvent{
+
+    sealed interface UiEvent {
+        data class UpdateData(val username: String) : UiEvent
         data object SwipeFinish : UiEvent
         data class ToastMsg(val msg: String) : UiEvent
     }
 
 
-    private suspend fun post(user: String = ""){
+    private suspend fun post(user: String = "") {
         val result = userRepository.post(UserDomain(user))
-        if(result.isSuccess)
+        if (result.isSuccess)
             _event.send(ToastMsg("Request success: code = ${result.result}"))
         else
             _event.send(ToastMsg("Request error: message = ${result.error!!.message}"))
@@ -39,6 +43,13 @@ class HomeViewModel@Inject constructor(
     fun onSwipe() = viewModelScope.launch {
         post("swiping user")
         _event.send(SwipeFinish)
+    }
+
+    fun updateData() = viewModelScope.launch(Dispatchers.IO) {
+        userRepository.getUsers().find { userId == it.uid }?.let {
+            user = it.username
+            _event.send(UpdateData(user))
+        }
     }
 
 

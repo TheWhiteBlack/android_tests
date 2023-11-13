@@ -47,10 +47,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
 fun HomeScreen(
-    user: String,
+    userId: Int = 0,
     event: Flow<UiEvent> = Channel<UiEvent>().receiveAsFlow(),
     onSwipe: () -> Unit = {},
-    onEditClicked: () -> Unit = {},
+    onEditClicked: (Int) -> Unit = {},
     onLogOutClicked: () -> Unit = {},
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -60,7 +60,7 @@ fun HomeScreen(
         drawerState = drawerState,
         drawerContent = { ModalDrawerSheet {
                 ModalDrawerContent(
-                    onEditClicked = onEditClicked,
+                    onEditClicked = {onEditClicked(userId)},
                     onLogOutClicked = onLogOutClicked
                 )
             }
@@ -70,7 +70,6 @@ fun HomeScreen(
             floatingActionButton = { FloatingButton(scope, drawerState) }
         ) { contentPadding ->
             HomeScreenContent(
-                user = user,
                 event = event,
                 onSwipe = onSwipe,
                 modifier = Modifier.padding(contentPadding)
@@ -82,8 +81,6 @@ fun HomeScreen(
 
 @Composable
 fun HomeScreenContent(
-    user: String,
-    userId: Int = 0,
     event: Flow<UiEvent> = Channel<UiEvent>().receiveAsFlow(),
     onSwipe: () -> Unit = {},
     modifier: Modifier,
@@ -95,13 +92,14 @@ fun HomeScreenContent(
         position = CameraPosition.fromLatLngZoom(singapore, 10f)
     }
     var refreshing by remember { mutableStateOf(false) }
+    var username by remember{ mutableStateOf("") }
 
     LaunchedEffect(key1 = refreshing, key2 = event) {
 
         event.collect { uiEvent ->
             when (uiEvent) {
+                is UiEvent.UpdateData -> username = uiEvent.username
                 is UiEvent.ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
-
                 UiEvent.SwipeFinish -> refreshing = false
             }
         }
@@ -121,7 +119,7 @@ fun HomeScreenContent(
         ) {
             val (welcome, map) = createRefs()
             Text(
-                text = "Welcome to home $user",
+                text = "Welcome to home $username",
                 style = Font.titleLarge,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.constrainAs(welcome) {
@@ -160,7 +158,7 @@ fun HomeScreenContent(
 @Composable
 private fun DefaultPreview() {
     RideryTestTheme {
-        HomeScreen(user = "name")
+        HomeScreen()
     }
 }
 

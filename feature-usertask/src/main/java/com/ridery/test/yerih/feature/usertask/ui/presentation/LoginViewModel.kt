@@ -22,6 +22,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import com.ridery.test.yerih.core.data.UserRepository
 import com.ridery.test.yerih.core.domain.UserDomain
+import com.ridery.test.yerih.core.log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -40,7 +41,7 @@ class LoginViewModel @Inject constructor(
         data class NavigateToSignUp(val user: UserDomain) : UiEvent
         data class ToastMsg(val msg: String) : UiEvent
     }
-    private fun saveUser(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) { userRepository.add(user) }
+
 
     fun onSignUpClicked(user: UserDomain) = viewModelScope.launch(Dispatchers.IO) {
         userRepository.getUsers().let{ users ->
@@ -58,7 +59,7 @@ class LoginViewModel @Inject constructor(
         }
         userRepository.getUsers().find{ user.username == it.username }?.let{
             if(it.password == user.password)
-                _event.send(UiEvent.NavigateToHome(user))
+                _event.send(UiEvent.NavigateToHome(it))
             else
                 _event.send(UiEvent.ToastMsg("Check your credentials"))
         }?:_event.send(UiEvent.ToastMsg("User no registered"))

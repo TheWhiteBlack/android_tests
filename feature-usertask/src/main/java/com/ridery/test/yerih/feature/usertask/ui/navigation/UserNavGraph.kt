@@ -1,9 +1,13 @@
 package com.ridery.test.yerih.feature.usertask.ui.navigation
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.ridery.test.yerih.core.log
 import com.ridery.test.yerih.core.sharedViewModel
 import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes.home
 import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes.graph
@@ -30,12 +34,9 @@ object Routes{
     object Args{
         const val userId = "{userId}"
         const val userName = "{userName}"
-        val userIdAsRoute = run {
-            userId.replace("{", "").replace("}", "")
-        }
-        val userNameAsRoute = run {
-            userName.replace("{", "").replace("}", "")
-        }
+        val userIdAsRoute = userId.replace("{", "").replace("}", "")
+        val userNameAsRoute = userName.replace("{", "").replace("}", "")
+
     }
 }
 
@@ -66,12 +67,15 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
             )
         }
 
-        composable(route = home){
+        composable(
+            route = home,
+            arguments = listOf(navArgument("userId") { type = NavType.IntType })
+        ){
             val homeViewModel = it.sharedViewModel<HomeViewModel>(navController)
-            homeViewModel.userId = it.arguments?.getInt(Routes.Args.userIdAsRoute)?:0
-//            homeViewModel.user = it.arguments?.getInt(Routes.Args.userAsArg)?:""
+            homeViewModel.userId = it.arguments?.getInt(Routes.Args.userIdAsRoute)?:-1
+            homeViewModel.updateData()
             HomeScreen(
-                user = homeViewModel.user,
+                userId = homeViewModel.userId,
                 event = homeViewModel.event,
                 onSwipe = homeViewModel::onSwipe,
                 onEditClicked = {navController.navigate(updateUser
@@ -80,14 +84,13 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
         }
 
         composable(route = updateUser){
-            val supViewModel = it.sharedViewModel<UpdateUserViewModel>(navController)
-            supViewModel.userId = it.arguments?.getInt(Routes.Args.userIdAsRoute)?:0
-//            supViewModel.username = it.arguments?.getString(Routes.Args.userAsArg)?:""
+            val updateViewModel = it.sharedViewModel<UpdateUserViewModel>(navController)
+            updateViewModel.userId = it.arguments?.getInt(Routes.Args.userIdAsRoute)?:-1
             UpdateUserScreen(
-                username = supViewModel.username,
-                user = supViewModel.user,
-                event = supViewModel.event,
-                checkCredentials = supViewModel::checkCredentials,
+                username = updateViewModel.username,
+                user = updateViewModel.user,
+                event = updateViewModel.event,
+                checkCredentials = updateViewModel::checkCredentials,
                 onTaskDone = { navController.popBackStack() }
             )
         }
