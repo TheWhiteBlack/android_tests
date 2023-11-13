@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\fragment_gallery.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\fragment_gallery.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\activity_register.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\activity_register.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\fragment_home.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\activity_login_star.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\activity_login_star.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\fragment_slideshow.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\fragment_slideshow.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\content_main.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\content_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\nav_header_main.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\nav_header_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-mergeDebugResources-3:\\layout\\app_bar_main.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\XSALES\\XSALES Android\\mobile\\Android\\gradle\\daemon\\8.0\\com.example.mapsdemoridery.app-main-6:\\layout\\app_bar_main.xml"
+    },
+    {
+        "merged": "com.example.mapsdemoridery.app-mergeDebugResources-3:/layout/fragment_gallery.xml",
+        "source": "com.example.mapsdemoridery.app-main-6:/layout/fragment_gallery.xml"
+    }
+]
