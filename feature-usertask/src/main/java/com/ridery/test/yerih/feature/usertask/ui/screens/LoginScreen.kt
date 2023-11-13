@@ -4,7 +4,6 @@ package com.ridery.test.yerih.feature.usertask.ui.screens
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +18,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,8 +38,8 @@ import com.ridery.test.yerih.core.domain.UserDomain
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.RideryTestTheme
 import com.ridery.test.yerih.feature.usertask.ui.navigation.Routes
-import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel
-import com.ridery.test.yerih.feature.usertask.ui.viewmodels.LoginViewModel.UiEvent.*
+import com.ridery.test.yerih.feature.usertask.ui.presentation.LoginViewModel
+import com.ridery.test.yerih.feature.usertask.ui.presentation.LoginViewModel.UiEvent.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow

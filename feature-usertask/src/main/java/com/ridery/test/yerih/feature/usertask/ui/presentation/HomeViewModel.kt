@@ -1,10 +1,10 @@
-package com.ridery.test.yerih.feature.usertask.ui.viewmodels
+package com.ridery.test.yerih.feature.usertask.ui.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ridery.test.yerih.core.data.UserRepository
 import com.ridery.test.yerih.core.domain.UserDomain
-import com.ridery.test.yerih.feature.usertask.ui.viewmodels.HomeViewModel.UiEvent.*
+import com.ridery.test.yerih.feature.usertask.ui.presentation.HomeViewModel.UiEvent.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

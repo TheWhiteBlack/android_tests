@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ridery.test.yerih.feature.usertask.ui.viewmodels
+package com.ridery.test.yerih.feature.usertask.ui.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,7 +22,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import com.ridery.test.yerih.core.data.UserRepository
 import com.ridery.test.yerih.core.domain.UserDomain
-import com.ridery.test.yerih.core.log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

@@ -33,16 +33,16 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.RideryTestTheme
-import com.ridery.test.yerih.feature.usertask.ui.presentation.SignUpViewModel
-import com.ridery.test.yerih.feature.usertask.ui.presentation.SignUpViewModel.UiEvent.*
+import com.ridery.test.yerih.feature.usertask.ui.presentation.UpdateUserViewModel
+import com.ridery.test.yerih.feature.usertask.ui.presentation.UpdateUserViewModel.UiEvent.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
-fun SignUpScreen(
+fun UpdateUserScreen(
     user: String,
-    event: Flow<SignUpViewModel.UiEvent> = Channel<SignUpViewModel.UiEvent>().receiveAsFlow(),
+    event: Flow<UpdateUserViewModel.UiEvent> = Channel<UpdateUserViewModel.UiEvent>().receiveAsFlow(),
     checkCredentials: (String, String, String)->Unit = {_,_,_->},
     onTaskDone: ()->Unit = {}
 ){
@@ -60,7 +60,7 @@ fun SignUpScreen(
     LaunchedEffect(key1 = Unit){
         event.collect{uiEvent ->
             when(uiEvent){
-                is NavigateToLogIn -> onTaskDone()
+                is NavigateToHome -> onTaskDone()//onTaskDone()
                 is ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
             }
         }
@@ -80,7 +80,7 @@ fun SignUpScreen(
         ) {
 
             Text(
-                text = "Sign Up",
+                text = "Update user",
                 style = Font.titleLarge,
                 modifier = Modifier.padding(bottom = 50.dp)
             )
@@ -141,7 +141,7 @@ fun SignUpScreen(
                     .padding(vertical = 30.dp, horizontal = 30.dp),
                 onClick = {checkCredentials(user, password, confirm)}
             ) {
-                Text(text = "Sign up")
+                Text(text = "Update user")
             }
         }
     }
@@ -153,6 +153,6 @@ fun SignUpScreen(
 @Composable
 private fun DefaultPreview() {
     RideryTestTheme {
-        SignUpScreen("user")
+        UpdateUserScreen("user")
     }
 }

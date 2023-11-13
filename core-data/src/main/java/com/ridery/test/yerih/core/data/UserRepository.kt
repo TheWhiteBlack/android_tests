@@ -39,7 +39,13 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getUsers(): List<UserDomain> = userTaskDao.getUsers().toDomain()
 
-    override suspend fun add(user: UserDomain) = userTaskDao.insertUserTask(user.toEntityDB())
+    override suspend fun add(user: UserDomain) {
+        val entity = user.toEntityDB()
+        userTaskDao.getUsers().find{entity.username == it.username}?.let{found ->
+            val copy = found.copy(password = entity.password).apply { uid = found.uid }
+            userTaskDao.insertUserTask(copy)
+        }?:userTaskDao.insertUserTask(entity)
+    }
     override suspend fun post(user: UserDomain): ResultOp<Int> {
         return try{
             remoteData.post(PostBody(

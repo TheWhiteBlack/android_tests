@@ -1,4 +1,4 @@
-package com.ridery.test.yerih.feature.usertask.ui.viewmodels
+package com.ridery.test.yerih.feature.usertask.ui.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -43,9 +43,11 @@ class SignUpViewModel @Inject constructor(
         val newUser = UserDomain(user, password)
         if(userRepository.getUsers().contains(newUser)){
             _event.send(UiEvent.ToastMsg("This user is registered. You can log in."))
+            _event.send(UiEvent.NavigateToLogIn(newUser))
             return@launch
         }
-        _event.send(UiEvent.ToastMsg("User registered! You can log in now!"))
         saveUser(newUser)
+        _event.send(UiEvent.NavigateToLogIn(newUser))
+        _event.send(UiEvent.ToastMsg("User registered! You can log in now!"))
     }
 }

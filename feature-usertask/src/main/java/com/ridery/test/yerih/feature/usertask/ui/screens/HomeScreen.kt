@@ -1,17 +1,14 @@
 package com.ridery.test.yerih.feature.usertask.ui.screens
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
@@ -43,9 +40,8 @@ import com.ridery.test.yerih.core.ui.FloatingButton
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.ModalDrawerContent
 import com.ridery.test.yerih.core.ui.RideryTestTheme
-import com.ridery.test.yerih.feature.usertask.ui.viewmodels.HomeViewModel.*
+import com.ridery.test.yerih.feature.usertask.ui.presentation.HomeViewModel.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 
