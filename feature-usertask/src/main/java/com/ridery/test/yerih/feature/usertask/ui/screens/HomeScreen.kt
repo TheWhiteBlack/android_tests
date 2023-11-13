@@ -16,7 +16,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,19 +37,16 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.ridery.test.yerih.core.ui.AlertDialog
 import com.ridery.test.yerih.core.ui.AlertDialogApp
 import com.ridery.test.yerih.core.ui.FloatingButton
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.ModalDrawerContent
 import com.ridery.test.yerih.core.ui.RideryTestTheme
 import com.ridery.test.yerih.feature.usertask.ui.presentation.HomeViewModel.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Composable
 fun HomeScreen(
@@ -93,6 +89,7 @@ fun HomeScreen(
     }
 
     if(dialogState) AlertDialogApp(
+        title = "Do you want log out?",
         onOkClicked = onBack,
         onCancel = { dialogState = false }
     )
@@ -115,6 +112,7 @@ fun HomeScreenContent(
     }
     var refreshing by remember { mutableStateOf(false) }
     var username by remember{ mutableStateOf("") }
+    var dialogState by remember { mutableStateOf(false) }
 
 
     LaunchedEffect(key1 = refreshing, key2 = event) {
@@ -123,8 +121,7 @@ fun HomeScreenContent(
             when (uiEvent) {
                 is UiEvent.UpdateData -> username = uiEvent.username
                 is UiEvent.ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
-                UiEvent.SwipeFinish -> { refreshing = false }
-                else ->{}
+                UiEvent.SwipeFinish -> { refreshing = false; dialogState = true }
             }
         }
     }
@@ -175,6 +172,12 @@ fun HomeScreenContent(
             }
 
         }
+
+        if(dialogState) AlertDialogApp(
+            title = "Your data is refreshed",
+            onCancel = { dialogState = false },
+            onOkClicked = { dialogState = false }
+        )
     }
 }
 

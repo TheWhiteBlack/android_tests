@@ -10,13 +10,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 
 
-data class AlertDialog(
-    val title: String = "title",
-    val msg: String = "message",
-)
 
 @Composable
 fun AlertDialogApp(
+    title: String = "Title",
+    msg: String = "",
     onOkClicked: ()->Unit = {},
     onCancel: ()->Unit = {},
 ){
@@ -25,16 +23,16 @@ fun AlertDialogApp(
 
     if (showDialog) {
         AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = { Text("Title") },
-            text = { Text("Message") },
+            onDismissRequest = { showDialog = false; onCancel() },
+            title = { Text(title) },
+            text = { Text(msg) },
             confirmButton = {
                 Button(onClick = { showDialog = false; onOkClicked() }) {
                     Text("Si")
                 }
             },
             dismissButton = {
-                Button(onClick = { showDialog = false; onCancel() },) {
+                Button(onClick = { showDialog = false; onCancel() }) {
                     Text("Cancel")
                 }
             }
