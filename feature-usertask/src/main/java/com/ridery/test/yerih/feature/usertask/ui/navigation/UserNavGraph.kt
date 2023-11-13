@@ -79,13 +79,17 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
                 event = homeViewModel.event,
                 onSwipe = homeViewModel::onSwipe,
                 onEditClicked = {navController.navigate(updateUser
-                    .replace(Routes.Args.userId, homeViewModel.user))}
+                    .replace(Routes.Args.userId, "${homeViewModel.userId}"))}
             )
         }
 
-        composable(route = updateUser){
+        composable(
+            route = updateUser,
+            arguments = listOf(navArgument("userId") { type = NavType.IntType })
+        ){
             val updateViewModel = it.sharedViewModel<UpdateUserViewModel>(navController)
             updateViewModel.userId = it.arguments?.getInt(Routes.Args.userIdAsRoute)?:-1
+            updateViewModel.updateData()
             UpdateUserScreen(
                 username = updateViewModel.username,
                 user = updateViewModel.user,

@@ -62,6 +62,7 @@ fun UpdateUserScreen(
     LaunchedEffect(key1 = Unit){
         event.collect{uiEvent ->
             when(uiEvent){
+                is UpdateData -> username = uiEvent.prev.username
                 is NavigateToHome -> onTaskDone()//onTaskDone()
                 is ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
             }
@@ -141,7 +142,7 @@ fun UpdateUserScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 30.dp, horizontal = 30.dp),
-                onClick = {checkCredentials(user, confirm)}
+                onClick = {checkCredentials(user.copy(password = password), confirm)}
             ) {
                 Text(text = "Update user")
             }

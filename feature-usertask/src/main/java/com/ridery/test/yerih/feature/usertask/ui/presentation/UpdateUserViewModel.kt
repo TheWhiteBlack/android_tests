@@ -19,11 +19,12 @@ class UpdateUserViewModel @Inject constructor(
 
     var username: String = ""
     var userId: Int = 0
-    lateinit var user: UserDomain
+    var user: UserDomain = UserDomain()
 
     private val _event = Channel<UiEvent>()
     val event = _event.receiveAsFlow()
     sealed interface UiEvent{
+        data class UpdateData(val prev: UserDomain) : UiEvent
         data class NavigateToHome(val user: UserDomain) : UiEvent
         data class ToastMsg(val msg: String) : UiEvent
     }
@@ -43,10 +44,15 @@ class UpdateUserViewModel @Inject constructor(
             return@launch
         }
         userRepository.getUsers().find { it.uid == user.uid }?.let{
-            saveUser(it.copy(password = userP.password))
+            saveUser(userP)
             _event.send(UiEvent.NavigateToHome(it))
             _event.send(UiEvent.ToastMsg("User updated!"))
         }
 
+    }
+
+    fun updateData() = viewModelScope.launch(Dispatchers.IO){
+        user = userRepository.getUsers().find { it.uid == userId }!!
+        _event.send(UiEvent.UpdateData(user))
     }
 }
