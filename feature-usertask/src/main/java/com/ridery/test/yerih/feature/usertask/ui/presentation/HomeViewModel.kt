@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ridery.test.yerih.core.data.UserRepository
 import com.ridery.test.yerih.core.domain.UserDomain
-import com.ridery.test.yerih.core.log
+import com.ridery.test.yerih.core.ui.AlertDialog
 import com.ridery.test.yerih.feature.usertask.ui.presentation.HomeViewModel.UiEvent.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

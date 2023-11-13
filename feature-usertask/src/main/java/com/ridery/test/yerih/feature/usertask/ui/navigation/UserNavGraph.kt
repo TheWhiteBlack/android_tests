@@ -78,7 +78,7 @@ fun NavGraphBuilder.userNavGraph(navController: NavController){
                 userId = homeViewModel.userId,
                 event = homeViewModel.event,
                 onSwipe = homeViewModel::onSwipe,
-                onBack = {navController.popBackStack()},
+                onBack = { navController.popBackStack()},
                 onEditClicked = {navController.navigate(updateUser
                     .replace(Routes.Args.userId, "${homeViewModel.userId}"))},
                 onLogOutClicked = {navController.popBackStack()}

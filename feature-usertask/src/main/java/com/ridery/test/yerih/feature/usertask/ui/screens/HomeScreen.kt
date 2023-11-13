@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,15 +38,19 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.ridery.test.yerih.core.ui.AlertDialog
+import com.ridery.test.yerih.core.ui.AlertDialogApp
 import com.ridery.test.yerih.core.ui.FloatingButton
 import com.ridery.test.yerih.core.ui.Font
 import com.ridery.test.yerih.core.ui.ModalDrawerContent
 import com.ridery.test.yerih.core.ui.RideryTestTheme
 import com.ridery.test.yerih.feature.usertask.ui.presentation.HomeViewModel.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun HomeScreen(
@@ -57,11 +62,13 @@ fun HomeScreen(
     onBack: ()->Unit = {}
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
+    var dialogState by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     BackHandler {
         if(drawerState.isOpen) scope.launch { drawerState.close() }
-        onBack()
+        else dialogState = true
     }
+
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -79,10 +86,17 @@ fun HomeScreen(
             HomeScreenContent(
                 event = event,
                 onSwipe = onSwipe,
+                onBack = onBack,
                 modifier = Modifier.padding(contentPadding)
             )
         }
     }
+
+    if(dialogState) AlertDialogApp(
+        onOkClicked = onBack,
+        onCancel = { dialogState = false }
+    )
+
 
 }
 
@@ -90,6 +104,7 @@ fun HomeScreen(
 fun HomeScreenContent(
     event: Flow<UiEvent> = Channel<UiEvent>().receiveAsFlow(),
     onSwipe: () -> Unit = {},
+    onBack: ()->Unit = {},
     modifier: Modifier,
 ) {
 
@@ -101,13 +116,15 @@ fun HomeScreenContent(
     var refreshing by remember { mutableStateOf(false) }
     var username by remember{ mutableStateOf("") }
 
+
     LaunchedEffect(key1 = refreshing, key2 = event) {
 
         event.collect { uiEvent ->
             when (uiEvent) {
                 is UiEvent.UpdateData -> username = uiEvent.username
                 is UiEvent.ToastMsg -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
-                UiEvent.SwipeFinish -> refreshing = false
+                UiEvent.SwipeFinish -> { refreshing = false }
+                else ->{}
             }
         }
     }
