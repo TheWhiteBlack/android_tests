@@ -1,6 +1,7 @@
 package com.ridery.test.yerih.feature.usertask.ui.screens
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -44,6 +45,7 @@ import com.ridery.test.yerih.feature.usertask.ui.presentation.HomeViewModel.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -52,9 +54,14 @@ fun HomeScreen(
     onSwipe: () -> Unit = {},
     onEditClicked: (Int) -> Unit = {},
     onLogOutClicked: () -> Unit = {},
+    onBack: ()->Unit = {}
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    BackHandler {
+        if(drawerState.isOpen) scope.launch { drawerState.close() }
+        onBack()
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -117,7 +124,10 @@ fun HomeScreenContent(
                 .padding(horizontal = 30.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            val (welcome, map) = createRefs()
+            val (welcome, map, guide) = createRefs()
+            val guideLine1 = createGuidelineFromTop(0.5f)
+
+
             Text(
                 text = "Welcome to home $username",
                 style = Font.titleLarge,
